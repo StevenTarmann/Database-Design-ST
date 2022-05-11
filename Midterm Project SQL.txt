@@ -1,0 +1,108 @@
+create table buyers ( 
+    account_number  varchar(8), 
+    first_name   varchar(20), 
+    last_name  varchar(20), 
+    street_Address  varchar(30), 
+    city varchar(20), 
+    state  varchar(20), 
+    phone_number  numeric(10,0), 
+    email  varchar(30), 
+    occupation  varchar(20), 
+    salary  numeric(8,2), 
+    credit_score  numeric(3,0), 
+    employer_code numeric(9,0), 
+    primary key (account_number) 
+);
+
+create table properties( 
+parcel_number  varchar(8), 
+street_address  varchar(30), 
+city  varchar(20), 
+state  varchar(20), 
+rooms  numeric(1,0), 
+square_feet  numeric(5,0), 
+market_value numeric(8,0), 
+Style_ID varchar(6), 
+primary key (parcel_number) 
+);
+
+create table architecture_style( 
+    Style_ID varchar(6), 
+    style_description varchar(20), 
+    primary key (Style_ID) 
+);
+
+create table contractors ( 
+    contractor_ID  varchar(6), 
+    Labor_Type  varchar(20), 
+    First_Name  varchar(20), 
+    Last_Name  varchar(20), 
+    street_Address  varchar(30), 
+    city  varchar(20), 
+    state  varchar(20), 
+    phone_number  numeric(10,0), 
+    primary key (contractor_ID) 
+);
+
+create table agents ( 
+    agent_ID  varchar(6), 
+    First_Name  varchar(20), 
+    Last_Name  varchar(20), 
+    street_Address  varchar(30), 
+    city  varchar(20), 
+    state  varchar(20), 
+    phone_number  numeric(10,0), 
+    primary key (agent_ID) 
+);
+
+create table employees ( 
+    employee_ID  varchar(6), 
+    First_Name  varchar(20), 
+    Last_Name  varchar(20), 
+    street_Address  varchar(30), 
+    city  varchar(20), 
+    state  varchar(20), 
+    phone_number  numeric(10,0), 
+    primary key (employee_ID) 
+);
+
+create table employers ( 
+    employer_code  numeric(9,0), 
+    employer_name  varchar(20), 
+    phone_number  numeric(10,0), 
+    primary key (employer_code) 
+);
+
+create table employers ( 
+    employer_code  numeric(9,0), 
+    employer_name  varchar(20), 
+    phone_number  numeric(10,0), 
+    primary key (employer_code) 
+);
+
+create table purchases ( 
+    parcel_number varchar(8), 
+    agent_ID  varchar(6), 
+    account_number  varchar(8), 
+    purchase_date  varchar(10), 
+    purchase_amount  numeric(10,2), 
+ 
+    primary key (parcel_number, agent_ID, account_number), 
+    foreign key (parcel_number) references properties, 
+    foreign key (agent_ID) references agents, 
+    foreign key (account_number) references buyers 
+);
+
+alter table buyers 
+add constraint employer_code 
+foreign key(employer_code) references employers;
+
+alter table properties 
+add constraint Style_ID 
+foreign key(Style_ID) references architecture_style;
+
+alter table agreements 
+add constraint contractor_ID 
+foreign key(contractor_ID) references contractors;
+
+
